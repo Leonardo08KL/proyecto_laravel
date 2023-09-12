@@ -2,3 +2,8 @@ php artisan make:model Solicitud -m
 php artisan make:request SolicitudRequest
 php artisan make:resource SolicitudResource
 php artisan make:controller Api/SolicitudController --model=Solicitud
+
+///////////////// Descargar repo 
+git clone https://github.com/devjaoc/proyecto_laravel.git
+composer install 
+generar .env
