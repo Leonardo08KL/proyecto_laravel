@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SolicitudResource;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        //
+
+        $solicitudes = Solicitud::all();
+        return  SolicitudResource::collection($solicitudes);
     }
 
     /**
