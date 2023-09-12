@@ -15,6 +15,12 @@ class SolicitudController extends Controller
     public function index()
     {
 
+        /*
+        $modelSolicitud = new Solicitud();
+        $modelSolicitud->titulo_corto = "Hola";
+        $modelSolicitud->descripcion = "Descripcion";
+        $modelSolicitud->save();
+        */
         $solicitudes = Solicitud::all();
         return  SolicitudResource::collection($solicitudes);
     }
