@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SolicitudRequest;
 use App\Http\Resources\SolicitudResource;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
@@ -21,6 +22,10 @@ class SolicitudController extends Controller
         $modelSolicitud->descripcion = "Descripcion";
         $modelSolicitud->save();
         */
+        /*$modelSolicitud = Solicitud::find(1);
+        $modelSolicitud->titulo_corto = "Nuevo valor titulo_corto";
+        $modelSolicitud->descripcion = "Descripcion nueva";
+        $modelSolicitud->save();*/
         $solicitudes = Solicitud::all();
         return  SolicitudResource::collection($solicitudes);
     }
@@ -36,9 +41,11 @@ class SolicitudController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SolicitudRequest $request)
     {
-        //
+       
+        $modeloSolicitud = Solicitud::created($request->all());
+        return new SolicitudResource($modeloSolicitud);
     }
 
     /**
