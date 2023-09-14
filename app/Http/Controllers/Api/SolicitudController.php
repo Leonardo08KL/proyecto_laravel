@@ -43,8 +43,8 @@ class SolicitudController extends Controller
      */
     public function store(SolicitudRequest $request)
     {
-       
-        $modeloSolicitud = Solicitud::created($request->all());
+
+        $modeloSolicitud = Solicitud::create($request->all());
         return new SolicitudResource($modeloSolicitud);
     }
 
