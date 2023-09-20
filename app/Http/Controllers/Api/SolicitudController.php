@@ -53,7 +53,7 @@ class SolicitudController extends Controller
      */
     public function show(Solicitud $solicitud)
     {
-        //
+        return new SolicitudResource($solicitud);
     }
 
     /**
@@ -67,16 +67,28 @@ class SolicitudController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Solicitud $solicitud)
+    public function update(SolicitudRequest $request, Solicitud $solicitud)
     {
-        //
+        //$solicitud->titulo_corto =$request->get('titulo_corto');
+        $solicitud->update($request->all()); //$solicitud->save();
+        //print_r($request->all('titulo_corto'));
+        return new SolicitudResource($solicitud);
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    //public function destroy($id)
     public function destroy(Solicitud $solicitud)
     {
-        //
+        /**
+         echo $id;
+        $modeloSolicitud = Solicitud::find($id);
+        $modeloSolicitud->delete();
+         */
+        $solicitudClone = clone $solicitud->getAttributes();
+        $solicitud->delete();
+        //return response($solicitud->getAttributes(), 200);
+        return new SolicitudResource($solicitudClone);
     }
 }

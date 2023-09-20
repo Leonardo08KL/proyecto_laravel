@@ -25,7 +25,7 @@ class SolicitudRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo_corto' => 'required',
+            'titulo_corto' => 'required|max:2',
             'descripcion' => 'required'
         ];
     }

@@ -15,6 +15,10 @@ class SolicitudResource extends JsonResource
     public function toArray(Request $request): array
     {
        // return parent::toArray($request);
-       return ['titulo_corto'=>$this->titulo_corto];
+       return [
+        'id'=>$this->id,
+        'titulo_corto'=>$this->titulo_corto,
+        'descripcion'=>$this->descripcion,
+    ];
     }
 }
