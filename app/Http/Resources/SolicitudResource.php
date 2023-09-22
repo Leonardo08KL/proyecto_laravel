@@ -19,6 +19,7 @@ class SolicitudResource extends JsonResource
         'id'=>$this->id,
         'titulo_corto'=>$this->titulo_corto,
         'descripcion'=>$this->descripcion,
+        'estado'=>$this->estadoSolicitud->estado_solicitudes
     ];
     }
 }

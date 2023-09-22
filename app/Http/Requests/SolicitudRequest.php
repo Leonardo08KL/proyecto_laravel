@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class SolicitudRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class SolicitudRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if (Auth::user()->id == 1) {
+            return true;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -34,7 +39,7 @@ class SolicitudRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'success' => false,
             "message" => "Validation error",
-            'data'=>$validator->errors()
+            'data' => $validator->errors()
         ]));
     }
 }
