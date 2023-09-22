@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EjemploApiController extends Controller
 {
@@ -11,6 +12,8 @@ class EjemploApiController extends Controller
      */
     public function index()
     {
+        print_r(Auth::user()->email);
+        print_r(Auth::user()->id);
         echo "Hola Mundo";
     }
 
