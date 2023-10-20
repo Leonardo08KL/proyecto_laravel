@@ -86,9 +86,9 @@ class SolicitudController extends Controller
         $modeloSolicitud = Solicitud::find($id);
         $modeloSolicitud->delete();
          */
-        $solicitudClone = clone $solicitud->getAttributes();
+       // $solicitudClone = clone $solicitud->getAttributes();
         $solicitud->delete();
         //return response($solicitud->getAttributes(), 200);
-        return new SolicitudResource($solicitudClone);
+        return new SolicitudResource($solicitud);
     }
 }
