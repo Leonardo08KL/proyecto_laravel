@@ -15,11 +15,13 @@ class SolicitudRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (Auth::user()->id == 1) {
+        /*  if (Auth::user()->id == 1) {
             return true;
         } else {
             return true;
         }
+        */
+        return true;
     }
 
     /**
@@ -30,7 +32,8 @@ class SolicitudRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo_corto' => 'required|max:2',
+            //'titulo_corto' => 'required|max:2',
+            'titulo_corto' => 'required',
             'descripcion' => 'required'
         ];
     }

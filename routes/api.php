@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::apiResource('solicitud', SolicitudController::class);
@@ -14,7 +15,7 @@ Route::middleware('auth:sanctum')->group(
     }
 );
 
-
+Route::apiResource('solicitud', SolicitudController::class);
 /*
 Route::post('auth/register',[AuthController::class,'register']);
 Route::post('auth/login',[AuthController::class,'register']);
