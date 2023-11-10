@@ -15,7 +15,7 @@ Route::middleware('auth:sanctum')->group(
     }
 );
 
-Route::apiResource('solicitud', SolicitudController::class);
+//Route::apiResource('solicitud', SolicitudController::class);
 /*
 Route::post('auth/register',[AuthController::class,'register']);
 Route::post('auth/login',[AuthController::class,'register']);
