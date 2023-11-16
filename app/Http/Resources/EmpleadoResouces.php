@@ -16,10 +16,11 @@ class SolicitudResource extends JsonResource
     {
        // return parent::toArray($request);
        return [
-            'id'=>$this->id,
-            'titulo_corto'=>$this->titulo_corto,
-            'descripcion'=>$this->descripcion,
-            'estado'=>$this->estadoSolicitud->estado_solicitudes
+        'EmpleadoID'=>$this->EmpleadoID,
+        'Nombre' => $this->Nombre,
+            'Apellido' => $this->Apellido,
+            'Posicion' => $this->Posicion,
+            'FechaContratacion' => $this->FechaContratacion
     ];
     }
 }

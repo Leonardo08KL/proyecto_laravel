@@ -83,4 +83,29 @@ class AuthController extends Controller
             ], 400);
         }
     }
+
+    // AuthController.php o el controlador que maneje la autenticación
+    public function logout(Request $request)
+    {
+        // Revoca el token de autenticación
+        $request->user()->token()->revoke();
+
+        // Llama a un método privado para destruir las cookies
+        $this->destroySessionCookies();
+
+        return response()->json([
+            'message' => 'Sesión cerrada con éxito'
+        ]);
+    }
+
+    // Método privado para destruir las cookies de sesión
+    private function destroySessionCookies()
+    {
+        // Asegúrate de reemplazar 'nombre_de_tu_cookie' con el nombre real de tus cookies
+        $cookieNames = ['nombre_de_tu_cookie1', 'nombre_de_tu_cookie2'];
+
+        foreach ($cookieNames as $cookieName) {
+            Cookie::queue(Cookie::forget($cookieName));
+        }
+    }
 }
