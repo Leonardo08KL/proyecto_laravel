@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(
 );
 
 Route::apiResource('solicitud', SolicitudController::class);
+Route::post('/empleados', [EmpleadoController::class, 'store']);
 Route::get('/empleados', [EmpleadoController::class, 'index']);
 
 /*

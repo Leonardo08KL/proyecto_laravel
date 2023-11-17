@@ -18,16 +18,16 @@ class EmpleadoController extends Controller
      // Método para insertar un nuevo empleado
      public function store(Request $request)
      {
-         $request->validate([
-             'Nombre' => 'required|max:100',
-             'Apellido' => 'required|max:100',
-             'Posicion' => 'required|max:100',
-             'FechaContratacion' => 'required|date'
-         ]);
- 
-         $empleado = Empleado::create($request->all());
- 
-         return response()->json($empleado, 201);
+        $validatedData = $request->validate([
+            'Nombre' => 'required|max:100',
+            'Apellido' => 'required|max:100',
+            'Posicion' => 'required|max:100',
+            'FechaContratacion' => 'required|date'
+        ]);
+
+        $empleado = Empleado::create($validatedData);
+
+        return response()->json($empleado, 201);
      }
  
      // Método para obtener todos los empleados
