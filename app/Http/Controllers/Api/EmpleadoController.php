@@ -47,16 +47,35 @@ class EmpleadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $EmpleadoID)
+    {$empleado = Empleado::find($EmpleadoID);
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+    
+        $validatedData = $request->validate([
+            'Nombre' => 'required|max:100',
+            'Apellido' => 'required|max:100',
+            'Posicion' => 'required|max:100',
+            'FechaContratacion' => 'required|date'
+        ]);
+    
+        $empleado->update($validatedData);
+        return response()->json($empleado, 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($EmpleadoID)
     {
-        //
+        $empleado = Empleado::find($EmpleadoID);
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+
+        $empleado->delete();
+        return response()->json(['message' => 'Empleado eliminado con éxito'], 200);
     }
 }

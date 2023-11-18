@@ -88,14 +88,12 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         // Revoca el token de autenticación
-        $request->user()->token()->revoke();
+        $request->user()->tokens()->delete();
 
-        // Llama a un método privado para destruir las cookies
-        $this->destroySessionCookies();
-
-        return response()->json([
-            'message' => 'Sesión cerrada con éxito'
-        ]);
+        // Borrar la sesión si estás usando sesiones
+        // $request->session()->invalidate();
+    
+        return response()->json(['message' => 'Sesión cerrada con éxito'], 200);
     }
 
     // Método privado para destruir las cookies de sesión

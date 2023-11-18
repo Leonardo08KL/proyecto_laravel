@@ -19,8 +19,26 @@ Route::middleware('auth:sanctum')->group(
 );
 
 Route::apiResource('solicitud', SolicitudController::class);
+
+
+// Tabla Empleados
 Route::post('/empleados', [EmpleadoController::class, 'store']);
 Route::get('/empleados', [EmpleadoController::class, 'index']);
+Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
+
+
+//Tabla Producto
+Route::post('/producto', [EmpleadoController::class, 'store']);
+Route::get('/producto', [EmpleadoController::class, 'index']);
+Route::delete('/producto/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+Route::put('/producto/{EmpleadoID}', [EmpleadoController::class, 'update']);
+
+
+Route::post('/empleados', [EmpleadoController::class, 'store']);
+Route::get('/empleados', [EmpleadoController::class, 'index']);
+Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
 
 /*
 Route::post('auth/register',[AuthController::class,'register']);
@@ -30,6 +48,8 @@ Route::prefix ('auth')->controller(AuthController::class)->group(
     function () {
         Route::post('register', 'register');
         Route::post('login', 'login');
+        Route::post('/cerrar-sesion', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
         // Route::post('empleados','empleados');
         // api.php
         //Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
