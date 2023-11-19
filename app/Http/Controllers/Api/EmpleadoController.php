@@ -15,9 +15,9 @@ class EmpleadoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     // Método para insertar un nuevo empleado
-     public function store(Request $request)
-     {
+    // Método para insertar un nuevo empleado
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'Nombre' => 'required|max:100',
             'Apellido' => 'required|max:100',
@@ -28,14 +28,14 @@ class EmpleadoController extends Controller
         $empleado = Empleado::create($validatedData);
 
         return response()->json($empleado, 201);
-     }
- 
-     // Método para obtener todos los empleados
-     public function index()
-     {
-         $empleados = Empleado::all();
-         return response()->json($empleados);
-     }
+    }
+
+    // Método para obtener todos los empleados
+    public function index()
+    {
+        $empleados = Empleado::all();
+        return response()->json($empleados);
+    }
     /**
      * Display the specified resource.
      */
@@ -48,18 +48,19 @@ class EmpleadoController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $EmpleadoID)
-    {$empleado = Empleado::find($EmpleadoID);
+    {
+        $empleado = Empleado::find($EmpleadoID);
         if (!$empleado) {
             return response()->json(['message' => 'Empleado no encontrado'], 404);
         }
-    
+
         $validatedData = $request->validate([
             'Nombre' => 'required|max:100',
             'Apellido' => 'required|max:100',
             'Posicion' => 'required|max:100',
             'FechaContratacion' => 'required|date'
         ]);
-    
+
         $empleado->update($validatedData);
         return response()->json($empleado, 200);
     }
