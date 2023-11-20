@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use App\Http\Resources\EmpleadoResource;
 
 
 class EmpleadoController extends Controller
@@ -25,23 +26,30 @@ class EmpleadoController extends Controller
             'FechaContratacion' => 'required|date'
         ]);
 
-        $empleado = Empleado::create($validatedData);
+        $modeloempleado = Empleado::create($validatedData);
 
-        return response()->json($empleado, 201);
+        return new EmpleadoResource($modeloempleado);
     }
 
     // Método para obtener todos los empleados
     public function index()
     {
         $empleados = Empleado::all();
-        return response()->json($empleados);
+        return EmpleadoResource::collection($empleados);
     }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($EmpleadoID)
     {
         //
+        $empleado = Empleado::find($EmpleadoID);
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+    
+        // Si el empleado existe, devuelve los datos utilizando el EmpleadoResource.
+        return new EmpleadoResource($empleado);
     }
 
     /**
@@ -62,7 +70,7 @@ class EmpleadoController extends Controller
         ]);
 
         $empleado->update($validatedData);
-        return response()->json($empleado, 200);
+        return new EmpleadoResource($empleado);
     }
 
 
@@ -73,10 +81,10 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($EmpleadoID);
         if (!$empleado) {
-            return response()->json(['message' => 'Empleado no encontrado'], 404);
+            return new EmpleadoResource(['message' => 'Empleado no encontrado'], 404);
         }
 
         $empleado->delete();
-        return response()->json(['message' => 'Empleado eliminado con éxito'], 200);
+        return new EmpleadoResource($empleado);
     }
 }

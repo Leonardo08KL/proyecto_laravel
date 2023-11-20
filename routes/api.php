@@ -16,17 +16,26 @@ Route::middleware('auth:sanctum')->group(
         Route::apiResource('solicitud', SolicitudController::class);
         Route::apiResource('ejemploApi', EjemploApiController::class);
         //Route::get('/empleados', [EmpleadoController::class, 'index']);
+    
+        // Tabla Empleados
+        Route::post('/empleados', [EmpleadoController::class, 'store']);
+        Route::get('/empleados', [EmpleadoController::class, 'index']);
+        Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+        Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
+        Route::get('/empleados', [EmpleadoController::class, 'show']);
+
     }
 );
 
 Route::apiResource('solicitud', SolicitudController::class);
-
-
-// Tabla Empleados
-Route::post('/empleados', [EmpleadoController::class, 'store']);
 Route::get('/empleados', [EmpleadoController::class, 'index']);
+Route::get('/empleados/{EmpleadoID}', [EmpleadoController::class, 'show']);
 Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
-Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
+
+
+
+
+
 
 
 //Tabla Producto
