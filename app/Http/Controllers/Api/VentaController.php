@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Venta;
+use App\Http\Resources\VentaResource;
 
 class VentaController extends Controller
 {
@@ -17,21 +18,27 @@ class VentaController extends Controller
 
         $venta = Venta::create($validatedData);
 
-        return response()->json($venta, 201);
+        return new VentaResource($venta);
     }
 
     // Método para obtener todos los empleados
     public function index()
     {
         $venta = Venta::all();
-        return response()->json($venta);
+        return VentaResource::collection($venta);
     }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($VentaID)
     {
         //
+        $venta = Venta::find($VentaID);
+        if (!$venta){
+            return response()->json(['message' => 'Venta no encontrado'], 404);
+        }
+
+        return new VentaResource($venta);
     }
 
     /**
@@ -50,7 +57,7 @@ class VentaController extends Controller
         ]);
 
         $venta->update($validatedData);
-        return response()->json($venta, 200);
+        return new VentaResource($venta);
     }
 
 
@@ -65,6 +72,6 @@ class VentaController extends Controller
         }
 
         $venta->delete();
-        return response()->json(['message' => 'Venta eliminado con éxito'], 200);
+        return new VentaResource($venta);
     }
 }
