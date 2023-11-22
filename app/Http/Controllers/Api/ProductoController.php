@@ -5,41 +5,52 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Http\Resources\ProductoResource;
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $producto = Producto::all();
-        return response()->json($producto);
-    }
-
     /**
      * Store a newly created resource in storage.
      */
+
+    //Método para insertar un nuevo producto
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'Nombre' =>'required',
-            'Descripcion' =>'required',
-            'Precio' =>'required',
-            'Stock' =>'required'
+            'Nombre' => 'required|max:100',
+            'Descripcion' => 'required|max:100',
+            'Precio' => 'required',
+            'Stock' => 'required'
         ]);
 
-        $producto = Producto::create($validateData);
+        $modeloproducto = Producto::create($validateData);
 
-        return response()->json($producto, 201);
+        return new ProductoResource($modeloproducto);
+    }
+
+    //Método para obtener todos los productos
+    public function index()
+    {
+        $productos = Producto::all();
+        return ProductoResource::collection($productos);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($ProductoID)
     {
         //
+        $producto = Producto::find($ProductoID);
+        if (!$producto){
+            return response() ->json(['message' => 'Producto no encontrado']);
+        }
+        
+        //Si el producto existe, devuelve los datos utilizando ProductoResource
+        return new ProductoResource($producto);
     }
 
     /**
@@ -53,14 +64,14 @@ class ProductoController extends Controller
         }
 
         $validatedData = $request->validate([
-            'Nombre' =>'required',
-            'Descripcion' =>'required',
+            'Nombre' =>'required|max:100',
+            'Descripcion' =>'required|max:100',
             'Precio' =>'required',
             'Stock' =>'required'
         ]);
 
         $producto->update($validatedData);
-        return response()->json($producto, 200);
+        return new ProductoResource($producto);
     }
 
     /**
@@ -70,10 +81,10 @@ class ProductoController extends Controller
     {
         $producto = Producto::find($ProductoID);
         if (!$producto) {
-            return response()->json(['message' => 'Producto no encontrado'], 404);
+            return new ProductoResource(['message' => 'Producto no encontrado'], 404);
         }
 
         $producto->delete();
-        return response()->json(['message' => 'Producto eliminado con éxito'], 200);
+        return new ProductoResource($producto);
     }
 }

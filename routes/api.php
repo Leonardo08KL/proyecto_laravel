@@ -24,6 +24,12 @@ Route::middleware('auth:sanctum')->group(
         Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
         Route::get('/empleados', [EmpleadoController::class, 'show']);
 
+        //Tabla Productos
+        Route::post('/productos', [ProductoController::class, 'store']);
+        Route::get('/productos', [ProductoController::class, 'index']);
+        Route::delete('/productos/{ProductoID}', [ProductoController::class, 'destroy']);
+        Route::put('/productos/{ProductoID}', [ProductoController::class, 'update']);
+        Route::get('/productos', [ProductoController::class, 'show']);
     }
 );
 
@@ -32,17 +38,11 @@ Route::get('/empleados', [EmpleadoController::class, 'index']);
 Route::get('/empleados/{EmpleadoID}', [EmpleadoController::class, 'show']);
 Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
 
-
-
-
-
-
-
 //Tabla Producto
-Route::post('/productos', [ProductoController::class, 'store']);
+Route::apiResource('solicitud', SolicitudController::class);
 Route::get('/productos', [ProductoController::class, 'index']);
+Route::get('/productos/{ProductoID}', [ProductoController::class, 'show']);
 Route::delete('/productos/{ProductoID}', [ProductoController::class, 'destroy']);
-Route::put('/productos/{ProductoID}', [ProductoController::class, 'update']);
 
 // Proveedor
 Route::post('/proveedores', [ProveedorController::class, 'store']);
