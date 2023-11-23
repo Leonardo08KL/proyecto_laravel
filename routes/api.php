@@ -45,10 +45,11 @@ Route::get('/productos/{ProductoID}', [ProductoController::class, 'show']);
 Route::delete('/productos/{ProductoID}', [ProductoController::class, 'destroy']);
 
 // Proveedor
-Route::post('/proveedores', [ProveedorController::class, 'store']);
-Route::get('/proveedores', [ProveedorController::class, 'index']);
-Route::delete('/proveedores/{ProveedorID}', [ProveedorController::class, 'destroy']);
-Route::put('/proveedores/{ProveedorID}', [ProveedorController::class, 'update']);
+Route::post('/proveedor', [ProveedorController::class, 'store']);
+Route::get('/proveedor', [ProveedorController::class, 'index']);
+Route::delete('/proveedor/{ProveedorID}', [ProveedorController::class, 'destroy']);
+Route::put('/proveedor/{ProveedorID}', [ProveedorController::class, 'update']);
+Route::get('/proveedor/{ProveedorID}', [ProveedorController::class, 'show']);
 
 // Venta
 Route::post('/ventas', [VentaController::class, 'store']);
