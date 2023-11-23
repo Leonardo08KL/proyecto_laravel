@@ -27,6 +27,7 @@ class EmpleadoController extends Controller
         ]);
 
         $modeloempleado = Empleado::create($validatedData);
+
         return new EmpleadoResource($modeloempleado);
     }
 
