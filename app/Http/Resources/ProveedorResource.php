@@ -24,8 +24,4 @@ class ProveedorResource extends JsonResource
             'Direccion' => $this->Direccion,
         ];
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8c4d7fb734fd1ddec754d4fca3ad631a79b02696
