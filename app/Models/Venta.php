@@ -13,6 +13,7 @@ class Venta extends Model
 
     protected $fillable = [
         'Fecha',
-        'Total'
+        'Total',
+        'imagen'
     ];
 }

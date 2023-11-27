@@ -23,7 +23,8 @@ class ProductoController extends Controller
             'Nombre' => 'required|max:100',
             'Descripcion' => 'required|max:100',
             'Precio' => 'required',
-            'Stock' => 'required'
+            'Stock' => 'required',
+            'imagen' => 'required'
         ]);
 
         $modeloproducto = Producto::create($validateData);
@@ -67,7 +68,9 @@ class ProductoController extends Controller
             'Nombre' =>'required|max:100',
             'Descripcion' =>'required|max:100',
             'Precio' =>'required',
-            'Stock' =>'required'
+            'Stock' =>'required',
+            'imagen' => 'required'
+
         ]);
 
         $producto->update($validatedData);

@@ -6,22 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('venta_detalle', function (Blueprint $table) {
-            $table->id('DetalleVentaID');
+            $table->bigIncrements('DetalleVentaID');
+            $table->date('Fecha');
+            $table->text('Descripcion');
             $table->integer('Cantidad');
-            $table->decimal('PrecioUnitario', 10, 2);
+            $table->decimal('Precio', 10, 2);
+            $table->unsignedBigInteger('EmpleadoID');
+            $table->unsignedBigInteger('ProductoID');
             $table->timestamps();
+
+            //$table->foreign('EmpleadoID')->references('EmpleadoID')->on('empleado')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreign('ProductoID')->references('ProductoID');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('venta_detalle');

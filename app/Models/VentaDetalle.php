@@ -12,7 +12,18 @@ class VentaDetalle extends Model
     protected $primaryKey = 'DetalleVentaID';
 
     protected $fillable = [
+        'Fecha',
+        'Descripcion',
         'Cantidad',
-        'PrecioUnitario'
+        'Precio',
+        'EmpleadoID',
+        'ProductoID'
     ];
+
+    public function Empleado(){
+        return $this->hasOne(Empleado::class, 'EmpleadoID', 'EmpleadoID');
+    }
+    public function Producto(){
+        return $this->hasOne(Producto::class, 'ProductoID', 'ProductoID');
+    }
 }

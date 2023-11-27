@@ -18,11 +18,11 @@ Route::middleware('auth:sanctum')->group(
         //Route::get('/empleados', [EmpleadoController::class, 'index']);
     
         // Tabla Empleados
-        Route::post('/empleados', [EmpleadoController::class, 'store']);
-        Route::get('/empleados', [EmpleadoController::class, 'index']);
-        Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
-        Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
-        Route::get('/empleados', [EmpleadoController::class, 'show']);
+        // Route::post('/empleados', [EmpleadoController::class, 'store']);
+        // Route::get('/empleados', [EmpleadoController::class, 'index']);
+        // Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+        // Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
+        // Route::get('/empleados', [EmpleadoController::class, 'show']);
 
         //Tabla Productos
         Route::post('/productos', [ProductoController::class, 'store']);
@@ -34,33 +34,41 @@ Route::middleware('auth:sanctum')->group(
 );
 
 Route::apiResource('solicitud', SolicitudController::class);
+
+Route::post('/empleados', [EmpleadoController::class, 'store']);
 Route::get('/empleados', [EmpleadoController::class, 'index']);
-Route::get('/empleados/{EmpleadoID}', [EmpleadoController::class, 'show']);
 Route::delete('/empleados/{EmpleadoID}', [EmpleadoController::class, 'destroy']);
+Route::put('/empleados/{EmpleadoID}', [EmpleadoController::class, 'update']);
+Route::get('/empleados/{EmpleadoID}', [EmpleadoController::class, 'show']);
 
 //Tabla Producto
-Route::apiResource('solicitud', SolicitudController::class);
+Route::post('/productos', [ProductoController::class, 'store']);
 Route::get('/productos', [ProductoController::class, 'index']);
-Route::get('/productos/{ProductoID}', [ProductoController::class, 'show']);
 Route::delete('/productos/{ProductoID}', [ProductoController::class, 'destroy']);
+Route::put('/productos/{ProductoID}', [ProductoController::class, 'update']);
+Route::get('/productos/{ProductoID}', [ProductoController::class, 'show']);
+
 
 // Proveedor
-Route::post('/proveedores', [ProveedorController::class, 'store']);
-Route::get('/proveedores', [ProveedorController::class, 'index']);
-Route::delete('/proveedores/{ProveedorID}', [ProveedorController::class, 'destroy']);
-Route::put('/proveedores/{ProveedorID}', [ProveedorController::class, 'update']);
+Route::post('/proveedor', [ProveedorController::class, 'store']);
+Route::get('/proveedor', [ProveedorController::class, 'index']);
+Route::delete('/proveedor/{ProveedorID}', [ProveedorController::class, 'destroy']);
+Route::put('/proveedor/{ProveedorID}', [ProveedorController::class, 'update']);
+Route::get('/proveedor/{ProveedorID}', [ProveedorController::class, 'show']);
 
 // Venta
 Route::post('/ventas', [VentaController::class, 'store']);
 Route::get('/ventas', [VentaController::class, 'index']);
 Route::delete('/ventas/{VentaID}', [VentaController::class, 'destroy']);
 Route::put('/ventas/{VentaID}', [VentaController::class, 'update']);
+Route::get('/ventas/{VentaID}', [VentaController::class, 'show']);
 
 // VentaDetalle
 Route::post('/ventasdetalles', [VentaDetalleController::class, 'store']);
 Route::get('/ventasdetalles', [VentaDetalleController::class, 'index']);
 Route::delete('/ventasdetalles/{DetalleVentaID}', [VentaDetalleController::class, 'destroy']);
 Route::put('/ventasdetalles/{DetalleVentaID}', [VentaDetalleController::class, 'update']);
+Route::get('/ventasdetalles/{DetalleVentaID}', [VentaDetalleController::class, 'show']);
 
 
 /*

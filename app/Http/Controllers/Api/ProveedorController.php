@@ -5,41 +5,50 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use App\Http\Resources\ProveedorResource;
+
 
 class ProveedorController extends Controller
 {
- /**
+    /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $proveedor = Proveedor::all();
-        return response()->json($proveedor);
-    }
-
     /**
      * Store a newly created resource in storage.
      */
+    // Método para insertar un nuevo empleado
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'Nombre' =>'required',
-            'Contacto' =>'required',
-            'Telefono' =>'required',
-            'Direccion' =>'required'
+        $validatedData = $request->validate([
+            'Nombre' => 'required|max:100',
+            'Contacto' => 'required|max:100',
+            'Telefono' => 'required|max:100',
+            'Direccion' => 'required|max:100'
         ]);
 
-        $proveedor = Proveedor::create($validateData);
-
-        return response()->json($proveedor, 201);
+        $modeloproveedor = Proveedor::create($validatedData);
+        return new ProveedorResource($modeloproveedor);
     }
 
+    // Método para obtener todos los Proveedors
+    public function index()
+    {
+        $proveedor = Proveedor::all();
+        return ProveedorResource::collection($proveedor);
+    }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($ProveedorID)
     {
         //
+        $proveedor = Proveedor::find($ProveedorID);
+        if (!$proveedor) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+    
+        // Si el empleado existe, devuelve los datos utilizando el EmpleadoResource.
+        return new ProveedorResource($proveedor);
     }
 
     /**
@@ -53,15 +62,16 @@ class ProveedorController extends Controller
         }
 
         $validatedData = $request->validate([
-            'Nombre' =>'required',
-            'Contacto' =>'required',
-            'Telefono' =>'required',
-            'Direccion' =>'required'
+            'Nombre' => 'required|max:100',
+            'Contacto' => 'required|max:100',
+            'Telefono' => 'required|max:100',
+            'Direccion' => 'required|max:100'
         ]);
 
         $proveedor->update($validatedData);
-        return response()->json($proveedor, 200);
+        return new ProveedorResource($proveedor);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -70,10 +80,10 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::find($ProveedorID);
         if (!$proveedor) {
-            return response()->json(['message' => 'Proveedor no encontrado'], 404);
+            return new ProveedorResource(['message' => 'Proveedor no encontrado'], 404);
         }
 
         $proveedor->delete();
-        return response()->json(['message' => 'Proveedor eliminado con éxito'], 200);
+        return new ProveedorResource($proveedor);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\VentaDetalle;
+use App\Http\Resources\VentaDetalleResource;
 
 class VentaDetalleController extends Controller
 {
@@ -18,27 +19,36 @@ class VentaDetalleController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'Fecha' => 'required',
+            'Descripcion' => 'required',
             'Cantidad' => 'required',
-            'PrecioUnitario' => 'required',
+            'Precio' => 'required',
+            'EmpleadoID' => 'required',
+            'ProductoID' => 'required'
         ]);
 
         $ventadetalle = VentaDetalle::create($validatedData);
 
-        return response()->json($ventadetalle, 201);
+        return new VentaDetalleResource($ventadetalle);
     }
 
     // Método para obtener todos los ventadetalles
     public function index()
     {
         $ventadetalles = VentaDetalle::all();
-        return response()->json($ventadetalles);
+        return VentaDetalleResource::collection($ventadetalles);
     }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($DetalleVentaID)
     {
-        //
+        $venta = VentaDetalle::find($DetalleVentaID);
+        if (!$venta){
+            return response()->json(['message' => 'Venta no encontrado'], 404);
+        }
+
+        return new VentaDetalleResource($venta);
     }
 
     /**
@@ -52,12 +62,16 @@ class VentaDetalleController extends Controller
         }
 
         $validatedData = $request->validate([
+            'Fecha' => 'required',
+            'Descripcion' => 'required',
             'Cantidad' => 'required',
-            'PrecioUnitario' => 'required',
+            'Precio' => 'required',
+            'EmpleadoID' => 'required',
+            'ProductoID' => 'required'
         ]);
 
         $ventadetalle->update($validatedData);
-        return response()->json($ventadetalle, 200);
+        return new VentaDetalleResource($ventadetalle);
     }
 
 
@@ -72,6 +86,6 @@ class VentaDetalleController extends Controller
         }
 
         $ventadetalle->delete();
-        return response()->json(['message' => 'ventadetalle eliminado con éxito'], 200);
+        return new VentaDetalleResource($ventadetalle);
     }
 }

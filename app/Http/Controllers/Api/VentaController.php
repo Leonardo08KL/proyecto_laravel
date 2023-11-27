@@ -13,7 +13,8 @@ class VentaController extends Controller
     {
         $validatedData = $request->validate([
             'Fecha' => 'required',
-            'Total' => 'required'
+            'Total' => 'required', 
+            'imagen' => 'required'
         ]);
 
         $venta = Venta::create($validatedData);
@@ -53,7 +54,8 @@ class VentaController extends Controller
 
         $validatedData = $request->validate([
             'Fecha' => 'required',
-            'Total' => 'required'
+            'Total' => 'required',
+            'imagen' => 'required'
         ]);
 
         $venta->update($validatedData);
